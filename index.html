@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Room</title>
+    <title>Zyliety's Digital Garden</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <!-- Sidebar Navigation -->
         <aside>
-            <h1>My Digital Room</h1>
             <nav>
                 <ul>
                     <li><a href="index.html">✿ Mainpage</a></li>
@@ -20,22 +19,101 @@
                 </ul>
             </nav>
             <div style="margin-top: 50px; font-size: 0.7rem; text-align: center;">
-                <p>Visitor No: 00123</p>
-                <p>Welcome!</p>
+                <p>© 2026 Zyliety</p>
             </div>
         </aside>
 
         <!-- Main Content -->
         <main>
-            <h2>Welcome!</h2>
-            <div class="img-box" style="height: 250px;">
-                <!-- Replace this with your own cute art or photo -->
-                <img src="https://via.placeholder.com/400x250" alt="Main illustration" style="max-width:100%; height:auto;">
+            <h2>Zyliety's Digital Garden</h2>
+            <div class="img-box">
+                <div class="carousel" aria-label="Image carousel"></div>
             </div>
             <p>Hello! You've found my small corner on the internet.</p>
-            <p>This is a cozy space where I archive my thoughts, art, and coding projects. Feel free to stay a while!</p>
+            <script>
+                const imagePaths = [
+                    "image/2026-07-04%20135506.png",
+                    "image/Campbell%20%26%20Co.,%202034-04-18.png",
+                    "image/Campbell%20%26%20Co.,%202074-03-12.png",
+                    "image/Campbell%20%26%20Co.,%202115-06-15%231.png",
+                    "image/Campbell%20%26%20Co.,%202175-01-02%233.png",
+                    "image/Campbell%20%26%20Co.,%202280-12-03.png",
+                    "image/Campbell%20%26%20Co.,%202415-10-01.png",
+                    "image/Campbell%20%26%20Co.,%202416-10-09.png",
+                    "image/Campbell%20%26%20Co.,%202467-08-03.png",
+                    "image/Campbell%20%26%20Co.,%202765-06-21.png",
+                    "image/Gordon%20%26%20Co.,%202026-04-21.png",
+                    "image/Gordon%20%26%20Co.png",
+                    "image/Hamilton%20%26%20Co.,%201900-10-26.png",
+                    "image/Hamilton%20%26%20Co.,%201901-03-27.png",
+                    "image/Hamilton%20%26%20Co.,%201901-04-01.png",
+                    "image/Hamilton%20%26%20Co.,%201922-03-29.png",
+                    "image/Murphy%20%26%20Co.,%202029-06-06%231.png",
+                    "image/O'Donnell%20%26%20Co.,%2018-02-2045.png",
+                    "image/O'Donnell%20%26%20Co.,%2019-04-2077.png",
+                    "image/Quigley%20%26%20Co.,%2005-04-2126%232.png",
+                    "image/Quigley%20%26%20Co.,%2008-02-2212.png",
+                    "image/Quigley%20%26%20Co.,%2017-07-2092.png",
+                    "image/Quigley%20%26%20Co.,%2022-12-2070%231.png",
+                    "image/Quigley%20%26%20Co.,%2026-11-2028.png",
+                    "image/Sharkey%20%26%20Co.,%2025-05-2001%231.png",
+                    "image/Sharkey%20%26%20Co.,%2025-05-2001%232.png",
+                    "image/Thomson%20%26%20Co.,%202018-03-29.png",
+                    "image/Thomson%20%26%20Co.,%202020-04-15.png"
+                ];
+
+                const carousel = document.querySelector('.carousel');
+                const indicators = document.createElement('div');
+                indicators.className = 'indicators';
+                carousel.appendChild(indicators);
+
+                let currentIndex = 0;
+                let timer = null;
+
+                function createSlide(src, index) {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = `Carousel image ${index + 1}`;
+                    if (index === 0) {
+                        img.classList.add('active');
+                    }
+                    carousel.appendChild(img);
+
+                    const dot = document.createElement('button');
+                    dot.className = 'indicator' + (index === 0 ? ' active' : '');
+                    dot.type = 'button';
+                    dot.setAttribute('aria-label', `Show image ${index + 1}`);
+                    dot.addEventListener('click', () => goToSlide(index));
+                    indicators.appendChild(dot);
+                }
+
+                function goToSlide(index) {
+                    const slides = carousel.querySelectorAll('img');
+                    const dots = indicators.querySelectorAll('.indicator');
+                    slides[currentIndex].classList.remove('active');
+                    dots[currentIndex].classList.remove('active');
+                    currentIndex = index;
+                    slides[currentIndex].classList.add('active');
+                    dots[currentIndex].classList.add('active');
+                    resetTimer();
+                }
+
+                function nextSlide() {
+                    const nextIndex = (currentIndex + 1) % imagePaths.length;
+                    goToSlide(nextIndex);
+                }
+
+                function resetTimer() {
+                    clearInterval(timer);
+                    timer = setInterval(nextSlide, 10000);
+                }
+
+                imagePaths.forEach((path, index) => createSlide(path, index));
+                resetTimer();
+            </script>
+            <p>This is a cozy space where I archive my OpenTTD thoughts, art, and coding projects. Feel free to stay a while!</p>
             <hr style="border: 0; border-top: 1px dashed #8b7d6b; margin: 20px 0;">
-            <p><i>Latest Update: 2024.05.20 - Revamped the room!</i></p>
+            <p><i>Latest Update: 2026.07.28</i></p>
         </main>
     </div>
 </body>
