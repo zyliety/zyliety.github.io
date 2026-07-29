@@ -18,6 +18,10 @@
                     <li><a href="about.html">✿ About Me</a></li>
                 </ul>
             </nav>
+            <div class="visitor-counter" aria-live="polite">
+                <span class="visitor-counter__label">🌐 Total Visits</span>
+                <strong id="visitCount">Loading…</strong>
+            </div>
             <div style="margin-top: 50px; font-size: 0.7rem; text-align: center;">
                 <p>© 2026 Zyliety</p>
             </div>
@@ -89,9 +93,35 @@
                 imagePaths.forEach((path, index) => createSlide(path, index));
                 resetTimer();
             </script>
+            <script>
+                const visitCountElement = document.getElementById('visitCount');
+                const storageKey = 'zyliety-github-io-visit-count';
+                const countApiUrl = 'https://api.countapi.xyz/hit/zyliety-github-io/visits';
+
+                async function updateVisitorCounter() {
+                    const fallbackValue = Number(localStorage.getItem(storageKey) || 0);
+                    visitCountElement.textContent = fallbackValue.toLocaleString();
+
+                    try {
+                        const response = await fetch(countApiUrl);
+                        if (!response.ok) {
+                            throw new Error('count API request failed');
+                        }
+                        const data = await response.json();
+                        const count = Number(data.value || 0);
+                        localStorage.setItem(storageKey, String(count));
+                        visitCountElement.textContent = count.toLocaleString();
+                    } catch (error) {
+                        console.warn('Visitor counter unavailable:', error);
+                        visitCountElement.textContent = fallbackValue.toLocaleString();
+                    }
+                }
+
+                updateVisitorCounter();
+            </script>
             <p>This is a cozy space where I archive my OpenTTD thoughts, art, and coding projects. Feel free to stay a while!</p>
             <hr style="border: 0; border-top: 1px dashed #8b7d6b; margin: 20px 0;">
-            <p><i>Latest Update: 2026.07.28</i></p>
+            <p><i>Latest Update: 2026.07.29</i></p>
         </main>
     </div>
 </body>
