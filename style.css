@@ -1,22 +1,22 @@
 /* --- Retro Cozy Digital Garden Style --- */
 :root {
-    --bg-color: #fdfcf0;    /* 奶油米色背景 */
-    --text-color: #5d574f;  /* 深咖啡色文字 */
-    --accent-color: #a8dadc; /* 柔和蓝色 */
-    --border-color: #8b7d6b; /* 边框色 */
-    --sidebar-bg: #f5f1e3;   /* 侧边栏色 */
+    --bg-color: #fdfcf0;    /* Creamy beige background */
+    --text-color: #5d574f;  /* Deep coffee-brown text */
+    --accent-color: #a8dadc; /* Soft blue accent */
+    --border-color: #8b7d6b; /* Border color */
+    --sidebar-bg: #f5f1e3;   /* Sidebar background */
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: "Courier New", Courier, monospace; /* 打字机字体 */
+    font-family: "Courier New", Courier, monospace; /* Typewriter-style font */
     margin: 0;
     padding: 0;
     line-height: 1.6;
 }
 
-/* 整体布局容器 */
+/* Main layout container */
 .container {
     display: flex;
     max-width: 900px;
@@ -26,7 +26,7 @@ body {
     min-height: 80vh;
 }
 
-/* 侧边栏导航 */
+/* Sidebar navigation */
 aside {
     width: 200px;
     border-right: 2px dashed var(--border-color);
@@ -63,7 +63,7 @@ nav ul li a:hover {
     color: white;
 }
 
-/* 主内容区 */
+/* Main content area */
 main {
     flex: 1;
     padding: 30px;
@@ -76,7 +76,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* 图片占位符 */
+/* Image placeholder */
 .img-box {
     border: 0px solid var(--border-color);
     background: #fafafa;
@@ -89,28 +89,144 @@ h2 {
     width: 100%;
 }
 
-/* 画廊网格 */
-.gallery {
+/* Gallery grid */
+.gallery-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
 }
 
-.gallery-item {
+.gallery-card {
     border: 1px dashed var(--border-color);
-    padding: 5px;
-    text-align: center;
-    font-size: 0.8rem;
+    padding: 12px;
+    background: #fffdf8;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-image:
+        linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.15)),
+        repeating-linear-gradient(0deg, rgba(139,125,107,0.04) 0 1px, transparent 1px 10px);
 }
 
-/* 项目卡片 */
-.project-card {
-    border: 1px solid var(--border-color);
-    padding: 15px;
-    margin-bottom: 20px;
-    background: #fff;
+.gallery-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
 }
-/* 导航栏图片 */
+
+.gallery-card::before {
+    content: "✧";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.gallery-card::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(139, 125, 107, 0.2);
+    pointer-events: none;
+}
+
+.gallery-card img {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 1px solid rgba(139, 125, 107, 0.25);
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 4px rgba(255,255,255,0.7);
+}
+
+.gallery-card h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    color: var(--text-color);
+    padding-right: 18px;
+}
+
+.gallery-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6e6357;
+    border-top: 1px dashed rgba(139, 125, 107, 0.3);
+    padding-top: 8px;
+}
+
+.album-toolbar {
+    margin: -4px 0 12px;
+    padding: 8px 10px;
+    border: 1px dashed var(--border-color);
+    display: inline-block;
+    background: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    color: #7a6b57;
+}
+
+.gallery-card:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Project cards */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.project-card {
+    border: 1px dashed var(--border-color);
+    padding: 15px;
+    background: #fffdf8;
+    position: relative;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.card-mark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--accent-color);
+    font-size: 1rem;
+}
+
+.repo-count {
+    margin: -8px 0 14px;
+    font-size: 0.9rem;
+    color: #7a6b57;
+    font-style: italic;
+}
+
+.project-card h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+.project-card p {
+    margin: 0 0 10px;
+    font-size: 0.95rem;
+}
+
+.repo-link {
+    display: inline-block;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.repo-link:hover {
+    color: #4d7f81;
+}
+
+/* Carousel images */
  .carousel {
       position: relative;
       width: 100%;
@@ -257,7 +373,7 @@ h2 {
     background: transparent;
 }
 
-/* 移动端适配 */
+/* Mobile responsive layout */
 @media (max-width: 700px) {
     .container { flex-direction: column; margin: 10px; }
     aside { width: auto; border-right: none; border-bottom: 2px dashed var(--border-color); }
@@ -266,6 +382,14 @@ h2 {
         padding: 18px;
     }
     .profile-list div {
+        grid-template-columns: 1fr;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
         grid-template-columns: 1fr;
     }
 }
