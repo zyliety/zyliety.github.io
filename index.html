@@ -95,26 +95,14 @@
             </script>
             <script>
                 const visitCountElement = document.getElementById('visitCount');
-                const storageKey = 'zyliety-github-io-visit-count';
-                const countApiUrl = 'https://api.countapi.xyz/hit/zyliety-github-io/visits';
+                const storageKey = 'zyliety-github-io-local-visit-count';
 
-                async function updateVisitorCounter() {
-                    const fallbackValue = Number(localStorage.getItem(storageKey) || 0);
-                    visitCountElement.textContent = fallbackValue.toLocaleString();
-
-                    try {
-                        const response = await fetch(countApiUrl);
-                        if (!response.ok) {
-                            throw new Error('count API request failed');
-                        }
-                        const data = await response.json();
-                        const count = Number(data.value || 0);
-                        localStorage.setItem(storageKey, String(count));
-                        visitCountElement.textContent = count.toLocaleString();
-                    } catch (error) {
-                        console.warn('Visitor counter unavailable:', error);
-                        visitCountElement.textContent = fallbackValue.toLocaleString();
-                    }
+                function updateVisitorCounter() {
+                    const storedValue = localStorage.getItem(storageKey);
+                    const previousCount = storedValue !== null ? Number(storedValue) : 0;
+                    const nextCount = previousCount + 1;
+                    localStorage.setItem(storageKey, String(nextCount));
+                    visitCountElement.textContent = nextCount.toLocaleString();
                 }
 
                 updateVisitorCounter();
